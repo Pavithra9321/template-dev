@@ -6,13 +6,13 @@ apply from: "$project.rootDir/tools/script-pmd.gradle"
 apply from: "$project.rootDir/tools/script-java-code-coverage.gradle"
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
         applicationId "com.dd.template"
-        minSdkVersion 18
-        targetSdkVersion 25
+        minSdkVersion 19
+        targetSdkVersion 27
     }
 
     signingConfigs {
@@ -29,9 +29,12 @@ android {
             storeFile file('../keystore/release.keystore')
         }
     }
+    flavorDimensions "version"
 
     productFlavors {
         dev {
+            flavorDimensions "version"
+
             signingConfig signingConfigs.debug
             versionCode gitVersionCodeTime
             versionName gitVersionName
@@ -39,6 +42,8 @@ android {
         }
 
         prod {
+            flavorDimensions "version"
+
             signingConfig signingConfigs.release
             versionCode gitVersionCode
             versionName gitVersionName
@@ -61,8 +66,8 @@ android {
 }
 
 dependencies {
-    compile("com.android.support:design:$supportVersion")
+    implementation("com.android.support:design:$supportVersion")
 
-    testCompile "org.mockito:mockito-core:1.10.19"
-    testCompile "junit:junit:4.12"
+    testImplementation "org.mockito:mockito-core:1.10.19"
+    testImplementation "junit:junit:4.12"
 }
